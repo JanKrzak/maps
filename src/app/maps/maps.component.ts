@@ -1,6 +1,4 @@
-import {OnInit} from '@angular/core';
-import {Component, NgZone} from '@angular/core';
-import {animate, state, style, transition, trigger, keyframes} from '@angular/animations';
+import {Component, OnInit} from '@angular/core';
 import {AppComponent} from '../app.component';
 
 @Component({
@@ -13,6 +11,8 @@ export class MapsComponent implements OnInit {
 
   constructor(public appComponent: AppComponent) {
   }
+
+  public optimizedWaypointsArray = [];
 
   ngOnInit() {
 
@@ -29,11 +29,14 @@ export class MapsComponent implements OnInit {
     directionsDisplay.setMap(map);
 
     document.getElementById('submit').addEventListener('click', function () {
-      calculateAndDisplayRoute(directionsService, directionsDisplay);
+      calculateAndDisplayRoute(directionsService, directionsDisplay)
     });
+
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
       let waypts = [];
+      let sortedWaypoints = [];
+      let html = '';
       let checkboxArray = app.addressArray;
       for (let i = 0; i < checkboxArray.length; i++) {
         waypts.push({
@@ -45,20 +48,29 @@ export class MapsComponent implements OnInit {
         window.alert('Wprowadź adres siedziby');
       }
       else {
-      directionsService.route({
-        origin: app.comapnyAddress,
-        destination: app.comapnyAddress,
-        waypoints: waypts,
-        travelMode: 'DRIVING',
-        optimizeWaypoints: true
-      }, function (response, status) {
-        if (status === 'OK') {
-          directionsDisplay.setDirections(response);
-        } else {
-          window.alert('Directions request failed due to ' + status);
-        }
-      });
-    }
+        directionsService.route({
+          origin: app.comapnyAddress,
+          destination: app.comapnyAddress,
+          waypoints: waypts,
+          travelMode: 'DRIVING',
+          optimizeWaypoints: true
+        }, function (response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+            let route = response['routes'][0];
+            console.log('Waypoints: ', response);
+            for (let i = 0; i < route['legs'].length; i++) {
+              sortedWaypoints.push(route['legs'][i]['end_address']);
+              html += '<li class="test-cnt ng-trigger ng-trigger-moveInLeft" _ngcontent-c0=""> ' + (i + 1) + '. '
+                + route['legs'][i]['end_address'] + ': ' + route['legs'][i]['duration']['text'] + ' </li>';
+            }
+            console.log('Waypoints: ', sortedWaypoints);
+            document.querySelector('.test-cnt').outerHTML = html
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
       }
     }
+  }
 }

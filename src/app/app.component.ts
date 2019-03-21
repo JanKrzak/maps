@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
+import {MapsComponent} from './maps/maps.component';
 import {animate, keyframes, style, transition, trigger} from '@angular/animations';
+
 
 @Component({
   selector: 'app-root',
@@ -25,18 +27,16 @@ import {animate, keyframes, style, transition, trigger} from '@angular/animation
 
 export class AppComponent {
   addressArray = [];
+  sortedAddressArray = [];
   comapnyAddress: String;
 
-  establishmentAddress: Object;
-
   formattedAddress: string;
-  formattedEstablishmentAddress: string;
-
-  phone: string;
 
   latitude: number;
   longtitude: number;
   latLang = {lat: 0, lng: 0};
+
+  public mapComponent: MapsComponent;
 
   constructor() {
   }
@@ -44,6 +44,13 @@ export class AppComponent {
   getAddress(place: object) {
     this.formattedAddress = place['formatted_address'];
   }
+
+/*  sortedAddress()  {
+    for (let address of this.mapComponent.optimizedWaypointsArray) {
+      console.log("Sorted: " , address);
+      this.sortedAddressArray.push(address)
+    }
+  }*/
 
   getCompanyAddress(place: object) {
     this.comapnyAddress = place['formatted_address'];
@@ -66,15 +73,15 @@ export class AppComponent {
   }
 
   addAddressInput(value) {
-    if (value !== '') {
+    if (value !== '' && value !== undefined) {
+      console.log("value: ", value);
       this.addressArray.push(value);
       console.log('Address: :', this.formattedAddress);
     } else {
-      alert('Field required **')
+      alert('Wprowadź poprawny adres')
     }
   }
 
-  /*delete item*/
   deleteAddress(todo) {
     for (let i = 0; i <= this.addressArray.length; i++) {
       if (todo == this.addressArray[i]) {

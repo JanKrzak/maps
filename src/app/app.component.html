@@ -3,12 +3,10 @@
 <body>
 
 <div class="topLeft">
-  <form>
     <h1 class="text-center ">Adres siedziby</h1>
     <AutocompleteComponent #addressCompany (setAddress)="getCompanyAddress($event)"
                            adressType="geocode"></AutocompleteComponent>
-  </form>
-</div>
+ </div>
 
 <form>
   <div class="form-group">
@@ -28,17 +26,21 @@
   </div>
 </form>
 
+
 <div class="topRight">
-  <form>
-    <button class="btn btn-primary" id="submit" (click)="calculateRoute()" mat-button>Szukaj Najszybszej Trasy</button>
-  </form>
+   <button class="btn btn-primary" id="submit" (click)="sortedAddress()"> Szukaj Najszybszej Trasy </button>
 </div>
+
+<form class="bottomRight">
+  <div class="data">
+    <ul class="list-unstyled">
+      <li [@moveInLeft] class="test-cnt">Najszybsza trasa zostanie wygenerowana</li>
+    </ul>
+  </div>
+</form>
 
 <div class="maps">
   <app-maps></app-maps>
 </div>
 
 </body>
-
-
-
