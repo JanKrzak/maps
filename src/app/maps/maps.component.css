@@ -1,5 +1,7 @@
 #map {
-  height: 500px;  /* The height is 400 pixels */
-  width: 65%;  /* The width is the width of the web page */
+  height: 550px;  /* The height is 400 pixels */
+  width: 125%;  /* The width is the width of the web page */
   top: 50px;
+  left: 10px;
+  margin-left: 20px;
 }

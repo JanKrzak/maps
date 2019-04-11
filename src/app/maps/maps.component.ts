@@ -61,11 +61,11 @@ export class MapsComponent implements OnInit {
             console.log('Waypoints: ', response);
             for (let i = 0; i < route['legs'].length; i++) {
               sortedWaypoints.push(route['legs'][i]['end_address']);
-              html += '<li class="test-cnt ng-trigger ng-trigger-moveInLeft" _ngcontent-c0=""> ' + (i + 1) + '. '
-                + route['legs'][i]['end_address'] + ': ' + route['legs'][i]['duration']['text'] + ' </li>';
+              html += '<div class="ng-trigger ng-trigger-moveInLeft" _ngcontent-c0=""> ' + (i + 1) + '. '
+                + route['legs'][i]['end_address'] + ': ' + route['legs'][i]['duration']['text'] + ' </div>';
             }
             console.log('Waypoints: ', sortedWaypoints);
-            document.querySelector('.test-cnt').outerHTML = html
+            document.querySelector('.test-cnt').innerHTML = html
           } else {
             window.alert('Directions request failed due to ' + status);
           }

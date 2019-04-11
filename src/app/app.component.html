@@ -2,7 +2,7 @@
 
 <body>
 
-<div class="topLeft">
+<div class="officeAddress">
     <h1 class="text-center ">Adres siedziby</h1>
     <AutocompleteComponent #addressCompany (setAddress)="getCompanyAddress($event)"
                            adressType="geocode"></AutocompleteComponent>
@@ -27,20 +27,25 @@
 </form>
 
 
-<div class="topRight">
+<div class="searchButton">
    <button class="btn btn-primary" id="submit" (click)="sortedAddress()"> Szukaj Najszybszej Trasy </button>
 </div>
 
-<form class="bottomRight">
-  <div class="data">
-    <ul class="list-unstyled">
-      <li [@moveInLeft] class="test-cnt">Najszybsza trasa zostanie wygenerowana</li>
-    </ul>
+<div class="row">
+  <div class="column" style="background-color:transparent;">
+      <app-maps></app-maps>
   </div>
-</form>
+  <div class="column" style="background-color:transparent;">
+      <div class="data summary">
+        <ul class="list-unstyled list-group">
+          <li [@moveInLeft] class="test-cnt list-group-item">Najszybsza trasa zostanie wygenerowana</li>
+        </ul>
+      </div>
+  </div>
 
-<div class="maps">
-  <app-maps></app-maps>
+
 </div>
+
+
 
 </body>
